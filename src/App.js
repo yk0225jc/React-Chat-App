@@ -1,20 +1,27 @@
-import React from 'react'
-import {ChatEngine} from 'react-chat-engine';
+import React from 'react';
+import { ChatEngine } from 'react-chat-engine';
 import ChatFeed from './components/ChatFeed';
+import Loginform from './components/LoginForm';
 import './App.css'
 
+const projectID = '0d5f40c9-2140-45e5-b36b-f913e10cee0f';
 
 const App = ()=>{
-    return(
+
+    if(!localStorage.getItem('username')) return <Loginform />
+
+
+    return (
         <ChatEngine
-            height = "100vh"
-            projectID = "d93c642f-81b2-44f6-b87b-d1d27ed80199"
-            userName = "JiamengZhou"
-            userSecret = "123123" // Password
-            renderChatFeed= {(chatAppProps) => <ChatFeed {... chatAppProps} />}
-    />
-    )
-}
+          height="100vh"
+          projectID={projectID}
+          userName={localStorage.getItem('username')}
+          userSecret={localStorage.getItem('password')}
+          renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+          onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+        />
+      );
+    };
 
 
 
